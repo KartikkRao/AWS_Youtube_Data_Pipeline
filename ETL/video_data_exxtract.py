@@ -51,21 +51,19 @@ for region in country_code:
             rows = (
             data['snippet'].get('publishedAt', ''),
             data['snippet'].get('channelId', ''),
-            data['snippet'].get('title', ''),
             data.get('id', ''),
-            data['snippet'].get('channelTitle', ''),
             int(data['snippet'].get('categoryId', '0')),
             int(data['statistics'].get('viewCount', 0)),
             int(data['statistics'].get('likeCount', 0)),
             int(data['statistics'].get('commentCount', 0)),
-            region, i
+            region, i, 1
             )
             i=i+1;
     
             video_list.append(rows)
             
 time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-df = spark.createDataFrame(video_list,['publish_date','channel_id','video_title','video_id','channel_name','category_id','view_count','like_count','comment_count','region_code','rank'])
+df = spark.createDataFrame(video_list,['publish_date','channel_id','video_id','category_id','view_count','like_count','comment_count','region_code','rank','is_current'])
 raw_path = f's3://youtube-data203/raw_data/videos_data/{time}'
 df.write.mode("overwrite").option("header","true").format("csv").save(raw_path)
 
