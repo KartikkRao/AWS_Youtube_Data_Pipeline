@@ -32,7 +32,6 @@ def transform(df):
     default ={
         "publish_date":'9999-12-31',
         "channel_id":"None",
-        "video_title":"None",
         "video_id":"None"
     }
     
@@ -49,7 +48,7 @@ def transform(df):
         .drop("publish_date", "publish_time")
     )
     
-    df = df.select("date_published","publish_time_hours","publish_time_minutes","region_code","rank","is_current","category_id","channel_id","video_id","video_title","view_count","like_count","comment_count")
+    df = df.select("date_published","publish_time_hours","publish_time_minutes","region_code","rank","is_current","category_id","channel_id","video_id","view_count","like_count","comment_count")
     
     return df
 
